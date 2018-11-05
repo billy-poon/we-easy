@@ -1,0 +1,27 @@
+{
+  "name": "we-easy.js",
+  "version": "0.1.0",
+  "description": "A tiny framework to make Wechat Mini-program development easier.",
+  "main": "dist/we-easy.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/billy-poon/we-easy.git"
+  },
+  "author": "Billy Poon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/billy-poon/we-easy/issues"
+  },
+  "homepage": "https://github.com/billy-poon/we-easy#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-loader": "^8.0.4",
+    "cross-env": "^5.2.0",
+    "webpack": "^4.24.0",
+    "webpack-cli": "^3.1.2"
+  }
+}

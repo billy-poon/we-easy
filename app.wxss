@@ -1,0 +1,113 @@
+.flex {
+  display: flex;
+  align-items: center;
+}
+.flex-main {
+  flex: 1;
+}
+.container {
+  padding: 8px;
+}
+.text-center {
+  text-align: center;
+}
+.btn-rounded[plain] {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  border: none!important;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.btn-rounded[plain][type=default] {
+  color: #888;
+  background: #fff;
+  font-size: 16px;
+}
+.btn-rounded[plain][type=warn] {
+  color: #fff;
+  background: #e64340;
+  font-size: 16px;
+}
+.btn-rounded[plain][type=primary] {
+  color: #fff;
+  background: #1aad19;
+  font-size: 16px;
+}
+.btn-rounded-sm[plain] {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  border: none!important;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.btn-rounded-sm[plain][type=default] {
+  color: #888;
+  background: #fff;
+  font-size: 12px;
+}
+.btn-rounded-sm[plain][type=warn] {
+  color: #fff;
+  background: #e64340;
+  font-size: 12px;
+}
+.btn-rounded-sm[plain][type=primary] {
+  color: #fff;
+  background: #1aad19;
+  font-size: 12px;
+}
+.btn-rounded-lg[plain] {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  border: none!important;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.btn-rounded-lg[plain][type=default] {
+  color: #888;
+  background: #fff;
+  font-size: 24px;
+}
+.btn-rounded-lg[plain][type=warn] {
+  color: #fff;
+  background: #e64340;
+  font-size: 24px;
+}
+.btn-rounded-lg[plain][type=primary] {
+  color: #fff;
+  background: #1aad19;
+  font-size: 24px;
+}
+.btn-rounded-xl[plain] {
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  border: none!important;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.btn-rounded-xl[plain][type=default] {
+  color: #888;
+  background: #fff;
+  font-size: 48px;
+}
+.btn-rounded-xl[plain][type=warn] {
+  color: #fff;
+  background: #e64340;
+  font-size: 48px;
+}
+.btn-rounded-xl[plain][type=primary] {
+  color: #fff;
+  background: #1aad19;
+  font-size: 48px;
+}

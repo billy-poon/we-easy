@@ -1,0 +1,10 @@
+{
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "white",
+    "navigationBarTitleText": "只是试试而已哈哈哈"
+  },
+  "pages": [
+    "test/pages/home"
+  ]
+}
