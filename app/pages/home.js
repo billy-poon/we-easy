@@ -1,4 +1,4 @@
-import { WeEasyPage } from '../../src/page'
+import { WeEasyPage } from '../libs/we-easy'
 
 WeEasyPage({
   data: {

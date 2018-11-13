@@ -1,5 +1,7 @@
-const webpack = require('webpack')
 const { resolve } = require('path')
+
+const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   context: resolve('src'),
@@ -11,15 +13,10 @@ module.exports = {
     sourceMapFilename: 'we-easy.js.map',
   },
   devtool: '#source-map',
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.js$/,
-  //       exclude: /node_modules/,
-  //       use: [
-  //         'babel-loader'
-  //       ]
-  //     }
-  //   ]
-  // }
+  plugins: [
+    new CopyWebpackPlugin([{
+      from: resolve('dist'),
+      to: resolve('app/libs'),
+    }]),
+  ]
 }

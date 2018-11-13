@@ -1,4 +1,4 @@
-import { WeEasyComponent } from '../../src/index'
+import { WeEasyComponent } from '../libs/we-easy'
 
 WeEasyComponent({
   options: {

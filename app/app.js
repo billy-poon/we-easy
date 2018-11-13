@@ -1,4 +1,6 @@
-import WeEasy from './src/index'
+if (!wx.nextTick) {
+  wx.nextTick = cb => setTimeout(cb, 0);
+}
 
 App({
   onLaunch(e) {

@@ -14,13 +14,6 @@
 	"libVersion": "2.2.5",
 	"appid": "touristappid",
 	"projectname": "we-easy",
-	"svr": "/",
-	"client": "/",
-	"qcloudRoot": "/",
-	"miniprogramRoot": "/",
-	"cloudfunctionRoot": "/",
-	"jsserverRoot": "/",
-	"pluginRoot": "/",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
