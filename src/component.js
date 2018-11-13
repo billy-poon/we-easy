@@ -45,6 +45,17 @@ export function WeEasyComponent(options) {
       attached: handleCreated,
       ready: handleMounted,
     },
+    {
+      created() {
+        Object.defineProperty(this, '$emit', {
+          get() {
+            return function() {
+              this.triggerEvent.apply(this, arguments)
+            }
+          }
+        })
+      }
+    },
     createObservePropsMixin(),
     ...globalMixins,
     ...(options.mixins || [])
