@@ -8,7 +8,7 @@ WeEasyComponent({
     items: {
       type: Array,
       observer() {
-        console.log(Array.from(arguments))
+        console.log('comp: property "items" changed')
       }
     },
   },
@@ -20,20 +20,30 @@ WeEasyComponent({
   watch: {
     count: {
       handler(nv, ov) {
-        console.log(`count changed to ${nv} from ${ov}`)
+        console.log(`comp: count changed to ${nv} from ${ov}`)
       },
       immediate: true
     }
   },
+  beforeCreate() {
+    console.log('comp: before-create')
+  },
   created() {
+    console.log('comp: created')
     global.$comp = this
-    this.$emit = function() {
-      this.triggerEvent.apply(this, arguments)
-    }
+  },
+  mounted() {
+    console.log('comp: mounted')
+  },
+  beforeUpdate() {
+    console.log('comp: before-update')
+  },
+  updated() {
+    console.log('comp: updated')
   },
   methods: {
     onTap() {
-      console.log('counter tapped: ', this.count);
+      console.log('comp: emiting "input" event')
       this.$emit('input', { value: this.count })
     }
   }

@@ -4,10 +4,7 @@ if (!wx.nextTick) {
 
 App({
   onLaunch(e) {
-    console.log('Application launched: ', e)
-    console.log({
-      window, global
-    })
+    console.log('app: launched.')
 
     wx.$app = this
     Object.defineProperty(this, '$pages', {
