@@ -1,7 +1,7 @@
+const { copyFile } = require('fs')
 const { resolve } = require('path')
 
-const webpack = require('webpack')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WebpackShellPlugin = require('webpack-shell-plugin')
 
 module.exports = {
   context: resolve('src'),
@@ -14,9 +14,8 @@ module.exports = {
   },
   devtool: '#source-map',
   plugins: [
-    new CopyWebpackPlugin([{
-      from: resolve('dist'),
-      to: resolve('app/libs'),
-    }]),
+    new WebpackShellPlugin({
+      onBuildEnd: 'cp dist/* app/libs/'
+    }),
   ]
 }
