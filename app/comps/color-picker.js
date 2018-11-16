@@ -51,7 +51,6 @@ WeEasyComponent({
   },
   created() {
     console.log('comp: created')
-    global.$comp = this
   },
   mounted() {
     console.log('comp: mounted')

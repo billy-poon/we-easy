@@ -6,6 +6,6 @@
     </view>
   </view>
   <view>
-    <color-picker value="{{color}}" bindinput="onColor" />
+    <color-picker ref="colorPicker" value="{{color}}" bindinput="onColor" />
   </view>
 </view>

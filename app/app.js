@@ -1,3 +1,8 @@
+import WeEasy from './libs/we-easy'
+import Plugin from './plugins/index'
+
+WeEasy.use(Plugin)
+
 if (!wx.nextTick) {
   wx.nextTick = cb => setTimeout(cb, 0);
 }
