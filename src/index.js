@@ -1,6 +1,7 @@
 import { WeEasyPage } from './page'
 import { WeEasyComponent } from './component'
 
+import NextTick from './plugin/next-tick'
 import DataProxify from './plugin/data-proxify'
 import DataComputed from './plugin/data-computed'
 import DataWatcher from './plugin/data-watcher'
@@ -27,6 +28,7 @@ Object.defineProperty(WeEasy, 'use', {
   }
 })
 
+WeEasy.use(NextTick)
 WeEasy.use(DataProxify)
 WeEasy.use(DataComputed)
 WeEasy.use(DataWatcher)
