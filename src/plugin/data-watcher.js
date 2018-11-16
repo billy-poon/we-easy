@@ -52,7 +52,7 @@ function createMixin() {
       // console.log('watcher mounted')
       if (!obj) return;
 
-      normalize(obj);
+      normalize.call(this, obj);
 
       Object.keys(obj).forEach(key => {
         let watcher = obj[key]
@@ -79,6 +79,7 @@ function install({ WeEasyPage, WeEasyComponent }) {
   install.installed = true
 
   WeEasyPage.mixin(createMixin())
+  WeEasyComponent.mixin(createMixin())
 }
 
 export default {
