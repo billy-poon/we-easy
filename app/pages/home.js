@@ -20,8 +20,8 @@ WeEasyPage({
   beforeCreate(opt) {
     console.log('page: before-create')
   },
-  onLoad(e) {
-    console.log('page: on-load')
+  created(e) {
+    console.log('page: created (means on-load)', e, this.color)
   },
   beforeMount() {
     console.log('page: before-mount')
@@ -40,11 +40,8 @@ WeEasyPage({
     onTap() {
       this.value += 1
     },
-    onInput(e) {
-      console.log('page: on-input');
-      this.logs = [e.detail.value, ...this.logs]
-    },
     onColor({ detail: { value } }) {
+      console.log('page: on-color', value)
       this.color = value.color
     }
   }

@@ -8,4 +8,7 @@
   <view>
     <color-picker ref="colorPicker" value="{{color}}" bindinput="onColor" />
   </view>
+  <view class="footer">
+    <view class="small text-hint text-center">See Console in Debugger for more details</view>
+  </view>
 </view>

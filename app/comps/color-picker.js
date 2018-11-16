@@ -43,6 +43,7 @@ WeEasyComponent({
     },
     color(nv) {
       let { r, g, b } = this
+      console.log('comp: emitting input event')
       this.$emit('input', { value: { r, g, b, color: nv } })
     }
   },
@@ -65,7 +66,7 @@ WeEasyComponent({
     resetValue(val) {
       let match, r, g, b;
       if (match = /^#([0-9a-f]{3})$/.exec(val)) {
-        [r, g, b] = Array.from(match[1]).map(x => parseInt(`0x${x}`))
+        [r, g, b] = Array.from(match[1]).map(x => parseInt(`0x${x}${x}`))
       } else if (match = /^#([0-9a-f]{6})$/.exec(val)) {
         [r, g, b] = chunk(Array.from(match[1]), 2).map(x => parseInt(`0x${x[0]}${x[1]}`))
       } else {
