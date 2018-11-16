@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A tiny framework to make Wechat Mini-program development easier.",
   "main": "dist/we-easy.js",
+  "miniprogram ": "dist",
   "scripts": {
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
