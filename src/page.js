@@ -5,7 +5,7 @@ import handleCreated from './base/handle-created'
 import handleMounted from './base/handle-mounted'
 
 const propMap = {
-  // 'created': 'onLoad',
+  'created': 'onLoad',
 }
 
 const globalMixins = []
