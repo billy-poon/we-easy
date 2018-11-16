@@ -2,22 +2,17 @@ import { WeEasyPage } from '../libs/we-easy'
 
 WeEasyPage({
   data: {
-    x: 'x',
-    logs: [],
-    value: 0,
+    color: '#9e9e9e',
   },
-  compute({ value, x }) {
+  compute({ color }) {
     return {
-      text: `${x}#${value}`
+      descriptionStyle: `background: ${color}`,
     }
   },
   watch: {
-    value(nv, ov) {
-      console.log(`page: value changed to ${nv} from ${ov}`)
-    },
-    text: {
+    color: {
       handler(nv, ov) {
-        console.log(`page: text changed to "${nv}" from "${ov}"`)
+        console.log(`page: color changed to "${nv}" from "${ov}"`)
       },
       immediate: true
     }
@@ -48,6 +43,9 @@ WeEasyPage({
     onInput(e) {
       console.log('page: on-input');
       this.logs = [e.detail.value, ...this.logs]
+    },
+    onColor({ detail: { value } }) {
+      this.color = value.color
     }
   }
 })

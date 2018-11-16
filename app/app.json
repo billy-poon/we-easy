@@ -2,7 +2,7 @@
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarBackgroundColor": "white",
-    "navigationBarTitleText": "只是试试而已哈哈哈"
+    "navigationBarTitleText": "We-Easy Sample"
   },
   "pages": [
     "pages/home"

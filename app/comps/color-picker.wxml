@@ -1,0 +1,8 @@
+<view>
+  <view class="flex"  wx:for="{{channels}}" wx:key="name">
+    <view class="label">{{item.name}}:</view>
+    <view class="flex-main">
+      <slider min="0" max="255" value="{{item.value}}" data-channel="{{item.name}}" bindchange="onSlide" show-value></slider>
+    </view>
+  </view>
+</view>

@@ -1,9 +1,0 @@
-<view class="component" bindtap="onTap">
-  <view class="text-center">Here is the component</view>
-  <view class="text-center">{{ count }}</view>
-  <view class="ul">
-    <view wx:for="{{items}}" wx:key=".this" class="li">
-      # {{item}}
-    </view>
-  </view>
-</view>
