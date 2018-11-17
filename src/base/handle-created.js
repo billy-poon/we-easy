@@ -76,5 +76,5 @@ export default function() {
     }
   })
 
-  beforeMount && beforeMount.call(this)
+  // beforeMount && beforeMount.call(this)
 }
