@@ -1,1 +1,3 @@
-/* test/pages/home.wxss */
+.small {
+  font-size: 80%;
+}

@@ -42,7 +42,7 @@ function dataProxify_Properties() {
 
 function createMixin(isComponent = false) {
   return {
-    mounted() {
+    created() {
       // console.log('proxify mounted')
       this.$updateDataProxify = function(data) {
         data = data || this.data
