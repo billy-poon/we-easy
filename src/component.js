@@ -18,13 +18,12 @@ function createObservePropsMixin() {
         Object.keys(props).forEach(key => {
           let prop = props[key]
           if (prop) {
-            if (typeof(prop) !== 'object') prop = { type: prop }
+            if (typeof(prop) !== 'object') prop = props[key] = { type: prop };
             let { observer } = prop
 
             prop.observer = ((key, observer) => function(nv) {
               if (typeof(observer) === 'string') observer = this[observer];
-
-              observer.apply(this, arguments)
+              observer && observer.apply(this, arguments)
 
               let data = {}
               data[key] = nv

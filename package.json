@@ -1,6 +1,6 @@
 {
   "name": "we-easy",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A tiny framework to make Wechat Mini-program development easier.",
   "main": "dist/we-easy.js",
   "miniprogram ": "dist",
