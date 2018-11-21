@@ -17,24 +17,25 @@ function mixinOne(obj, mixin) {
 
 
 function remapProps(obj, map) {
-  Object.keys(map).forEach(key => {
-    let prop = obj[key]
-    if (prop !== void(0)) {
-      let mapKey = map[key]
-      obj[mapKey] = prop
-      delete obj[key]
-    }
-  })
+  obj = Object.assign({}, obj)
+  if (map) {
+    Object.keys(map).forEach(key => {
+      let prop = obj[key]
+      if (prop !== void (0)) {
+        let mapKey = map[key]
+        obj[mapKey] = prop
+        delete obj[key]
+      }
+    })
+  }
 
   return obj
 }
 
 export default function(obj, mixins, propsMap) {
-  let remap = propsMap ? x => remapProps(x, propsMap) : x => x
-
   let result = {}
-  mixins && mixins.forEach(x => mixinOne(result, remap(x)))
-  mixinOne(result, remap(obj))
+  mixins && mixins.forEach(x => mixinOne(result, remapProps(x, propsMap)))
+  mixinOne(result, remapProps(obj))
 
   return result;
 }
