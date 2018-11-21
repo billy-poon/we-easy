@@ -35,7 +35,7 @@ function remapProps(obj, map) {
 export default function(obj, mixins, propsMap) {
   let result = {}
   mixins && mixins.forEach(x => mixinOne(result, remapProps(x, propsMap)))
-  mixinOne(result, remapProps(obj))
+  mixinOne(result, remapProps(obj, propsMap))
 
   return result;
 }
