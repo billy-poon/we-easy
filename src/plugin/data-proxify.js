@@ -20,11 +20,17 @@ function dataProxify_Data(data) {
     this,
     Object.keys(data),
     function(prop) {
-      return this.data[prop]
+      let { $$proxifyCache: cache } = this
+      if (cache.hasOwnProperty(prop)) {
+        return cache[prop]
+      } else {
+        return this.data[prop]
+      }
     },
     function(prop, value) {
       let data = {}
       data[prop] = value
+      this.$$proxifyCache[prop] = value
       return this.setData(data)
     }
   )
@@ -44,17 +50,28 @@ function createMixin(isComponent = false) {
   return {
     created() {
       // console.log('proxify mounted')
-      this.$updateDataProxify = function(data) {
+      let cache = {}
+      Object.defineProperty(this, '$$proxifyCache', {
+        get() { return cache }
+      })
+
+      let updateDataProxify = (function (data) {
         data = data || this.data
         dataProxify_Data.call(this, data)
-      }
-      this.$updateDataProxify()
+      }).bind(this)
+
+      updateDataProxify()
+      Object.defineProperty(this, '$updateDataProxify', {
+        get() { return updateDataProxify }
+      })
 
       if (isComponent) {
         dataProxify_Properties.call(this)
       }
     },
     updated(data) {
+      let { $$proxifyCache: cache } = this
+      Object.keys(data).forEach(key => (delete cache[key]))
       this.$updateDataProxify(data)
     },
   }

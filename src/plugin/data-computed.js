@@ -10,37 +10,62 @@ function computeData(compute, data) {
   return res
 }
 
-function createMixin() {
-  let fn = null
-  let cache = {}
+function Computer(target, compute) {
+  Object.defineProperty(this, 'target', {
+    get() { return target }
+  })
+  Object.defineProperty(this, 'compute', {
+    get() { return compute }
+  })
+}
 
+Computer.prototype.isSelfUpdate = function(data) {
+  let { cache } = this
+  if (cache && data) {
+    data = Object.assign({}, data)
+    Object.keys(cache).forEach(key => (delete data[key]))
+  }
+
+  return diff(data, cache) === void(0)
+}
+
+Computer.prototype.invoke = function(data, immediate = false) {
+  let { target, compute, cache } = this
+
+  let computed = computeData.call(target, compute, data)
+  if (diff(computed, cache) === void(0)) return;
+
+  this.cache = computed
+  target.setData(computed, null, !!immediate)
+}
+
+function createMixin() {
   return {
     beforeCreate(opt) {
       let { compute } = opt
       if (compute !== void(0)) {
         if (typeof(compute) !== 'function')
           throw new Error('The "compute" option should be a method.')
-
-        fn = compute
       }
     },
     mounted() {
       // console.log('computed mounted')
-      if (!fn) return;
+      let { compute } = this.$getOption()
+      if (!compute) return;
 
-      let computed = cache = computeData.call(this, fn, this.$getMergedData())
-      this.setData(computed, null, true)
+      let computer = new Computer(this, compute)
+      Object.defineProperty(this, '$$computer', {
+        get() { return computer }
+      })
+
+      computer.invoke(this.$getMergedData(), true)
     },
     updated(data) {
-      if (!fn) return;
-      if (diff(data, cache) === void(0)) return;
+      let { $$computer: computer } = this
+      if (!computer) return;
+      if (computer.isSelfUpdate(data)) return;
 
-      let computed = computeData.call(this, fn, this.$getMergedData())
-      let delta = diff(computed, cache)
-      if (delta !== void(0)) {
-        cache = computed
-        this.setData(computed)
-      }
+      computer.invoke(this.$getMergedData())
     }
   }
 }

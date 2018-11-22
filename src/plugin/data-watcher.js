@@ -2,74 +2,94 @@ import diff from '../diff/index'
 
 function normalize(watch) {
   Object.keys(watch).forEach(key => {
-    let watcher = watch[key]
-    if (!watcher) {
+    let item = watch[key]
+    if (!item) {
       throw new Error(`Invalid config for watcher "${key}".`)
     }
 
-    let type = typeof(watcher)
+    let type = typeof(item)
     if (type === 'function') {
-      watcher = { handler: watcher }
+      item = { handler: item }
     } else if (type === 'string') {
-      watcher = { handler: this[watcher] }
-    } else if (typeof(watcher.handler) === 'string') {
-      watcher.handler = this[watcher.handler]
+      item = { handler: this[item] }
+    } else if (typeof(item.handler) === 'string') {
+      item.handler = this[item.handler]
     }
 
-    if (typeof(watcher.handler) !== 'function') {
+    if (typeof(item.handler) !== 'function') {
       throw new Error(`Invalid handler function specified to watcher "${key}".`)
     }
 
-    watch[key] = watcher
+    watch[key] = item
+  })
+}
+
+function Watcher(target, watch) {
+  normalize.call(target, watch)
+  Object.defineProperty(this, 'target', {
+    get() { return target }
+  })
+
+  Object.defineProperty(this, 'watch', {
+    get() { return watch }
+  })
+
+  let cache = {}
+  Object.defineProperty(this, 'cache', {
+    get() { return cache }
+  })
+}
+
+Watcher.prototype.initialize = function() {
+  let { target, cache, watch } = this
+
+  Object.keys(watch).forEach(key => {
+    cache[key] = target[key]
+  })
+
+  let keys = Object.keys(watch).filter(key => watch[key].immediate)
+  if (keys) this.invokeWatcher(keys, true)
+}
+
+Watcher.prototype.invokeWatcher = function(keys, force = false) {
+  let { target, cache, watch } = this
+  keys && keys.forEach(key => {
+    if (!watch.hasOwnProperty(key)) return;
+
+    let ov = cache[key]
+    let nv = target[key]
+
+    if (force || diff(nv, ov) !== void (0)) {
+      cache[key] = nv
+      watch[key].handler.call(target, nv, ov)
+    }
   })
 }
 
 function createMixin() {
-  let obj = null
-  let cache = {}
-
-  function invokeWatcher(key, force = false) {
-    let nv = this[key]
-    let ov = cache[key]
-
-    if (force || diff(nv, ov) !== void(0)) {
-      cache[key] = nv
-      obj[key].handler.call(this, nv, ov)
-    }
-  }
-
   return {
     beforeCreate(opt) {
       let { watch } = opt
       if (watch !== void(0)) {
         if (typeof(watch) !== 'object')
           throw new Error('The "watch" option should be an object.')
-
-        obj = watch
       }
     },
     mounted() {
       // console.log('watcher mounted')
-      if (!obj) return;
+      let { watch } = this.$getOption()
+      if (!watch) return;
 
-      normalize.call(this, obj);
-
-      Object.keys(obj).forEach(key => {
-        let watcher = obj[key]
-        cache[key] = this[key]
-        if (watcher.immediate) {
-          invokeWatcher.call(this, key, true)
-        }
+      let watcher = new Watcher(this, watch)
+      Object.defineProperty(this, '$$watcher', {
+        get() { return watcher }
       })
+
+      watcher.initialize()
     },
     updated(data) {
-      if (!obj) return;
-
-      Object.keys(data).forEach(key => {
-        if (obj.hasOwnProperty(key)) {
-          invokeWatcher.call(this, key)
-        }
-      })
+      let { $$watcher: watcher } = this
+      watcher && watcher.invokeWatcher(Object.keys(data))
     }
   }
 }
