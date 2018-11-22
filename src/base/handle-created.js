@@ -1,4 +1,5 @@
 import diff from '../diff/index'
+import { nextTick } from '../utils/index'
 
 let uid = 0
 
@@ -20,7 +21,7 @@ export default function() {
     data = data || this.$getMergedData()
     if (!updatedDataCache) {
       updatedDataCache = {}
-      wx.nextTick($ => {
+      nextTick($ => {
         let data = updatedDataCache
         updatedDataCache = null
         updated.call(this, data)
@@ -47,7 +48,7 @@ export default function() {
   let asyncSetData = (data, callback) => {
     if (!setDataCache) {
       setDataCache = {}
-      wx.nextTick($ => {
+      nextTick($ => {
         let data = setDataCache
         let callbacks = setDataCallbacks
 

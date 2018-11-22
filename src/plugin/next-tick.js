@@ -1,3 +1,5 @@
+import { nextTick } from '../utils/index'
+
 function install({ WeEasyPage, WeEasyComponent }) {
   if (install.installed) return;
   install.installed = true
@@ -5,7 +7,7 @@ function install({ WeEasyPage, WeEasyComponent }) {
   let mixin = {
     created() {
       Object.defineProperty(this, '$nextTick', {
-        get() { return cb => wx.nextTick(cb.call(this)) }
+        get() { return cb => nextTick(cb.call(this)) }
       })
     }
   }
