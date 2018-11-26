@@ -64,9 +64,6 @@ export function WeEasyComponent(options) {
   opt.methods = opt.methods || {}
 
   opt.methods.$getOption = () => opt
-  opt.methods.$getMergedData = function() {
-    return Object.assign({}, this.properties, this.data)
-  }
 
   let { beforeCreate } = opt
   if (typeof(beforeCreate) === 'function') {

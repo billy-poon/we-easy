@@ -36,18 +36,7 @@ function dataProxify_Data(data) {
   )
 }
 
-// data == properties for components, don't need this
-// function dataProxify_Properties() {
-//   dataProxify.call(
-//     this,
-//     Object.keys(this.properties),
-//     function(prop) {
-//       return this.properties[prop]
-//     }
-//   )
-// }
-
-function createMixin(/*isComponent = false*/) {
+function createMixin() {
   return {
     created() {
       // console.log('proxify mounted')
@@ -65,10 +54,6 @@ function createMixin(/*isComponent = false*/) {
       Object.defineProperty(this, '$updateDataProxify', {
         get() { return updateDataProxify }
       })
-
-      // if (isComponent) {
-      //   dataProxify_Properties.call(this)
-      // }
     },
     updated(data) {
       let { $$proxifyCache: cache } = this
@@ -83,7 +68,7 @@ function install({ WeEasyPage, WeEasyComponent }) {
   install.installed = true
 
   WeEasyPage.mixin(createMixin())
-  WeEasyComponent.mixin(createMixin(/*true*/))
+  WeEasyComponent.mixin(createMixin())
 }
 
 export default {

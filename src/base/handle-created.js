@@ -18,7 +18,7 @@ export default function() {
   let notifyUpdated = data => {
     if (!updated) return;
 
-    data = data || this.$getMergedData()
+    data = data || this.data
     if (!updatedDataCache) {
       updatedDataCache = {}
       nextTick($ => {

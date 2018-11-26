@@ -29,9 +29,6 @@ export function WeEasyPage(options) {
   }
 
   opt.$getOption = () => opt
-  opt.$getMergedData = function() {
-    return Object.assign({}, this.data)
-  }
 
   let { beforeCreate } = opt
   if (typeof(beforeCreate) === 'function') {
