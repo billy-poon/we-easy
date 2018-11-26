@@ -58,14 +58,14 @@ function createMixin() {
         get() { return computer }
       })
 
-      computer.invoke(this.$getMergedData(), true)
+      computer.invoke(this.data, true)
     },
     updated(data) {
       let { $$computer: computer } = this
       if (!computer) return;
       if (computer.isSelfUpdate(data)) return;
 
-      computer.invoke(this.$getMergedData())
+      computer.invoke(this.data)
     }
   }
 }

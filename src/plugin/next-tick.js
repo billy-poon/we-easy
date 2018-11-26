@@ -7,7 +7,7 @@ function install({ WeEasyPage, WeEasyComponent }) {
   let mixin = {
     created() {
       Object.defineProperty(this, '$nextTick', {
-        get() { return cb => nextTick(cb.call(this)) }
+        get() { return (action, callback) => nextTick(action, this, callback) }
       })
     }
   }

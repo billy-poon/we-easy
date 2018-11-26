@@ -36,17 +36,18 @@ function dataProxify_Data(data) {
   )
 }
 
-function dataProxify_Properties() {
-  dataProxify.call(
-    this,
-    Object.keys(this.properties),
-    function(prop) {
-      return this.properties[prop]
-    }
-  )
-}
+// data == properties for components, don't need this
+// function dataProxify_Properties() {
+//   dataProxify.call(
+//     this,
+//     Object.keys(this.properties),
+//     function(prop) {
+//       return this.properties[prop]
+//     }
+//   )
+// }
 
-function createMixin(isComponent = false) {
+function createMixin(/*isComponent = false*/) {
   return {
     created() {
       // console.log('proxify mounted')
@@ -65,9 +66,9 @@ function createMixin(isComponent = false) {
         get() { return updateDataProxify }
       })
 
-      if (isComponent) {
-        dataProxify_Properties.call(this)
-      }
+      // if (isComponent) {
+      //   dataProxify_Properties.call(this)
+      // }
     },
     updated(data) {
       let { $$proxifyCache: cache } = this
@@ -82,7 +83,7 @@ function install({ WeEasyPage, WeEasyComponent }) {
   install.installed = true
 
   WeEasyPage.mixin(createMixin())
-  WeEasyComponent.mixin(createMixin(true))
+  WeEasyComponent.mixin(createMixin(/*true*/))
 }
 
 export default {
