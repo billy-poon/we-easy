@@ -1,3 +1,4 @@
+import { WeEasyApp } from './app'
 import { WeEasyPage } from './page'
 import { WeEasyComponent } from './component'
 
@@ -6,8 +7,8 @@ import DataProxify from './plugin/data-proxify'
 import DataComputed from './plugin/data-computed'
 import DataWatcher from './plugin/data-watcher'
 
-
 const WeEasy = {
+  WeEasyApp,
   WeEasyPage,
   WeEasyComponent,
 }
@@ -34,6 +35,7 @@ WeEasy.use(DataComputed)
 WeEasy.use(DataWatcher)
 
 export {
+  WeEasyApp,
   WeEasyPage,
   WeEasyComponent,
 }
