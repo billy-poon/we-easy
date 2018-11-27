@@ -1,4 +1,5 @@
 import diff from '../diff/index'
+import { nextTick } from '../utils/index'
 
 function normalize(watch) {
   Object.keys(watch).forEach(key => {
@@ -40,15 +41,46 @@ function Watcher(target, watch) {
   })
 }
 
-Watcher.prototype.initialize = function() {
-  let { target, cache, watch } = this
+Watcher.prototype = {
+  constructor: Watcher,
+  initialize: function () {
+    let { target, cache, watch } = this
 
-  Object.keys(watch).forEach(key => {
-    cache[key] = target[key]
-  })
+    let immediates = {}
+    let hasImmediates = false
+    Object.keys(watch).forEach(key => {
+      let val = cache[key] = target.data[key]
+      if (watch[key].immediate) {
+        hasImmediates = true
+        immediates[key] = val
+      }
+    })
 
-  let keys = Object.keys(watch).filter(key => watch[key].immediate)
-  if (keys) this.invokeWatcher(keys, true)
+    if (hasImmediates) {
+      nextTick($ => this.invokeByData(immediates, true))
+    }
+  },
+  invokeByData(data, force = false) {
+    let keys = Object.keys(data || {})
+    let { target, cache, watch } = this
+
+    keys && keys.forEach(key => {
+      if (!watch.hasOwnProperty(key)) return;
+
+      let ov = cache[key]
+      let nv = data[key]
+
+      if (force || diff(nv, ov) !== void (0)) {
+        cache[key] = nv
+        watch[key].handler.call(target, nv, ov)
+      }
+    })
+  },
+  // invokeByKeys(keys, force = false) {
+  //   let { target } = this
+  //   let data = keys.reduce((res, key) => (res[key] = target.data[key], res), {})
+  //   this.invokeByData(data, force)
+  // }
 }
 
 Watcher.prototype.invokeWatcher = function(keys, force = false) {
@@ -57,7 +89,7 @@ Watcher.prototype.invokeWatcher = function(keys, force = false) {
     if (!watch.hasOwnProperty(key)) return;
 
     let ov = cache[key]
-    let nv = target[key]
+    let nv = target.data[key]
 
     if (force || diff(nv, ov) !== void (0)) {
       cache[key] = nv
@@ -75,8 +107,8 @@ function createMixin() {
           throw new Error('The "watch" option should be an object.')
       }
     },
-    mounted() {
-      // console.log('watcher mounted')
+    created() {
+      // console.log('watcher created')
       let { watch } = this.$getOption()
       if (!watch) return;
 
@@ -89,7 +121,7 @@ function createMixin() {
     },
     updated(data) {
       let { $$watcher: watcher } = this
-      watcher && watcher.invokeWatcher(Object.keys(data))
+      watcher && watcher.invokeByData(data)
     }
   }
 }
