@@ -1,11 +1,12 @@
 {
   "name": "we-easy",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A tiny framework to make Wechat Mini-program development easier.",
   "main": "dist/we-easy.js",
   "miniprogram ": "dist",
   "scripts": {
-    "build": "webpack",
+    "build": "cross-env NODE_ENV=production webpack",
+    "build-dev": "cross-env NODE_ENV=development webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

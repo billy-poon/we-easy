@@ -4,7 +4,7 @@ const { resolve } = require('path')
 const WebpackShellPlugin = require('webpack-shell-plugin')
 
 module.exports = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: process.env.NODE_ENV || 'production',
   context: resolve('src'),
   entry: './index.js',
   output: {
@@ -12,15 +12,6 @@ module.exports = {
     path: resolve('dist'),
     filename: 'we-easy.js',
     sourceMapFilename: 'we-easy.js.map',
-  },
-  resolve: {
-    alias: {
-      '@': resolve('src'),
-      '@c': resolve('core'),
-      '@m': resolve('mixins'),
-      '@p': resolve('plugins'),
-      '@u': resolve('utils'),
-    }
   },
   devtool: '#source-map',
   plugins: [
