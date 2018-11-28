@@ -1,68 +1,64 @@
 // global Component
 
-import mixin from './mixin/index'
-import handleCreated from './base/handle-created'
-import handleMounted from './base/handle-mounted'
+import mixin from './utils/mixin'
+import laterMixin from './mixins/later'
+import earlierMixin from './mixins/earlier'
 
 const propMap = {
   'props': 'properties',
+  'mounted': 'ready',
 }
 
 const globalMixins = []
 
-function createObservePropsMixin() {
-  return {
-    beforeCreate(opt) {
-      let { properties: props, watch, compute } = opt
-      if (props && (watch ||compute)) {
-        Object.keys(props).forEach(key => {
-          let prop = props[key]
-          if (prop) {
-            if (typeof(prop) !== 'object') prop = props[key] = { type: prop };
-            let { observer } = prop
+const defaultMixin = {
+  beforeCreate(opt) {
+    let { properties: props, watch, compute } = opt
+    if (props && (watch || compute)) {
+      Object.keys(props).forEach(key => {
+        let prop = props[key]
+        if (prop) {
+          if (typeof (prop) !== 'object') prop = props[key] = { type: prop };
+          let { observer } = prop
 
-            prop.observer = ((key, observer) => function(nv) {
-              if (typeof(observer) === 'string') observer = this[observer];
-              observer && observer.apply(this, arguments)
+          prop.observer = ((key, observer) => function (nv) {
+            if (typeof (observer) === 'string') observer = this[observer];
+            observer && observer.apply(this, arguments)
 
-              let data = {}
-              data[key] = nv
-              this.$notifyUpdated && this.$notifyUpdated(data)
+            let data = {}
+            data[key] = nv
+            this.$notifyUpdated(data)
 
-            })(key, observer)
-          }
-        })
-      }
+          })(key, observer)
+        }
+      })
     }
+  },
+  created() {
+    Object.defineProperty(this, '$emit', {
+      get() {
+        return function () {
+          this.triggerEvent.apply(this, arguments)
+        }
+      }
+    })
   }
 }
 
 export function WeEasyComponent(options) {
   options = options || {}
-  options.mixins = [
-    {
-      attached: handleCreated,
-      ready: handleMounted,
-    },
-    {
-      created() {
-        Object.defineProperty(this, '$emit', {
-          get() {
-            return function() {
-              this.triggerEvent.apply(this, arguments)
-            }
-          }
-        })
-      }
-    },
-    createObservePropsMixin(),
+  let mixins = [
+    earlierMixin,
+    defaultMixin,
     ...globalMixins,
-    ...(options.mixins || [])
+    ...(options.mixins || []),
+    options,
+    laterMixin,
   ]
 
-  let opt = mixin(options, options.mixins, propMap)
-  opt.methods = opt.methods || {}
+  let opt = mixin(mixins, propMap)
 
+  opt.methods = opt.methods || {}
   opt.methods.$getOption = () => opt
 
   let { beforeCreate } = opt

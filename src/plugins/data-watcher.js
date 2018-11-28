@@ -1,5 +1,4 @@
-import diff from '../diff/index'
-import { nextTick } from '../utils/index'
+import diff from '../utils/diff'
 
 function normalize(watch) {
   Object.keys(watch).forEach(key => {
@@ -46,6 +45,8 @@ Watcher.prototype = {
   initialize: function () {
     let { target, cache, watch } = this
 
+    // console.log('initial: ', target.data)
+
     let immediates = {}
     let hasImmediates = false
     Object.keys(watch).forEach(key => {
@@ -57,10 +58,11 @@ Watcher.prototype = {
     })
 
     if (hasImmediates) {
-      nextTick($ => this.invokeByData(immediates, true))
+      this.invoke(immediates, true)
     }
   },
-  invokeByData(data, force = false) {
+  invoke(data, force = false) {
+    // console.log('invoking watcher', data, force)
     let keys = Object.keys(data || {})
     let { target, cache, watch } = this
 
@@ -76,62 +78,39 @@ Watcher.prototype = {
       }
     })
   },
-  // invokeByKeys(keys, force = false) {
-  //   let { target } = this
-  //   let data = keys.reduce((res, key) => (res[key] = target.data[key], res), {})
-  //   this.invokeByData(data, force)
-  // }
 }
 
-Watcher.prototype.invokeWatcher = function(keys, force = false) {
-  let { target, cache, watch } = this
-  keys && keys.forEach(key => {
-    if (!watch.hasOwnProperty(key)) return;
-
-    let ov = cache[key]
-    let nv = target.data[key]
-
-    if (force || diff(nv, ov) !== void (0)) {
-      cache[key] = nv
-      watch[key].handler.call(target, nv, ov)
+let mixin = {
+  beforeCreate(opt) {
+    let { watch } = opt
+    if (watch !== void(0)) {
+      if (typeof(watch) !== 'object')
+        throw new Error('The "watch" option should be an object.')
     }
-  })
-}
+  },
+  beforeMount() {
+    // console.log('watcher created')
+    let { watch } = this.$getOption()
+    if (!watch) return;
 
-function createMixin() {
-  return {
-    beforeCreate(opt) {
-      let { watch } = opt
-      if (watch !== void(0)) {
-        if (typeof(watch) !== 'object')
-          throw new Error('The "watch" option should be an object.')
-      }
-    },
-    created() {
-      // console.log('watcher created')
-      let { watch } = this.$getOption()
-      if (!watch) return;
+    let watcher = new Watcher(this, watch)
+    Object.defineProperty(this, '$$watcher', {
+      get() { return watcher }
+    })
 
-      let watcher = new Watcher(this, watch)
-      Object.defineProperty(this, '$$watcher', {
-        get() { return watcher }
-      })
-
-      watcher.initialize()
-    },
-    updated(data) {
-      let { $$watcher: watcher } = this
-      watcher && watcher.invokeByData(data)
-    }
+    watcher.initialize()
+  },
+  updated(data) {
+    let { $$watcher: watcher } = this
+    watcher && watcher.invoke(data, true)
   }
 }
 
-function install({ WeEasyPage, WeEasyComponent }) {
+function install({ WeEasyBoth }) {
   if (install.installed) return;
   install.installed = true
 
-  WeEasyPage.mixin(createMixin())
-  WeEasyComponent.mixin(createMixin())
+  WeEasyBoth.mixin(mixin)
 }
 
 export default {

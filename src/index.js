@@ -2,13 +2,24 @@ import { WeEasyApp } from './app'
 import { WeEasyPage } from './page'
 import { WeEasyComponent } from './component'
 
-import NextTick from './plugin/next-tick'
-import DataProxify from './plugin/data-proxify'
-import DataComputed from './plugin/data-computed'
-import DataWatcher from './plugin/data-watcher'
+import NextTick from './plugins/next-tick'
+import DataProxify from './plugins/data-proxify'
+import DataWatcher from './plugins/data-watcher'
+import DataComputed from './plugins/data-computed'
+
+const WeEasyBoth = {}
+Object.defineProperty(WeEasyBoth, 'mixin', {
+  get() {
+    return mixin => {
+      WeEasyPage.mixin(mixin)
+      WeEasyComponent.mixin(mixin)
+    }
+  }
+})
 
 const WeEasy = {
   WeEasyApp,
+  WeEasyBoth,
   WeEasyPage,
   WeEasyComponent,
 }

@@ -1,5 +1,7 @@
-import diff from '../diff/index'
-import { nextTick } from '../utils/index'
+// earlier action in created() hook
+
+import diff from '../utils/diff'
+import nextTick from '../utils/next-tick'
 
 let uid = 0
 
@@ -12,7 +14,7 @@ export default function() {
   let { $getOption, setData } = this
   if (!$getOption || !setData) return;
 
-  let { beforeMount, beforeUpdate, updated } = this.$getOption()
+  let { beforeUpdate, updated } = this.$getOption()
 
   let updatedDataCache = null
   let notifyUpdated = data => {
@@ -76,6 +78,4 @@ export default function() {
       }).bind(this)
     }
   })
-
-  // beforeMount && beforeMount.call(this)
 }

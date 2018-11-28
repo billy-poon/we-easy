@@ -1,27 +1,28 @@
 // global Page
 
-import mixin from './mixin/index'
-import handleCreated from './base/handle-created'
-import handleMounted from './base/handle-mounted'
+import mixin from './utils/mixin'
+import laterMixin from './mixins/later'
+import earlierMixin from './mixins/earlier'
 
 const propMap = {
   'created': 'onLoad',
+  'mounted': 'onReady',
 }
 
 const globalMixins = []
 
 export function WeEasyPage(options) {
   options = options || {}
-  options.mixins = [
-    {
-      onLoad: handleCreated,
-      onReady: handleMounted,
-    },
+  let mixins = [
+    earlierMixin,
     ...globalMixins,
-    ...(options.mixins || [])
+    ...(options.mixins || []),
+    options,
+    laterMixin,
   ]
 
-  let opt = mixin(options, options.mixins, propMap)
+  let opt = mixin(mixins, propMap)
+
   let { methods } = opt
   if (methods) {
     opt = { ...opt, ...methods }

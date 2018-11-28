@@ -1,3 +1,4 @@
+// mounted() hook
 export default function() {
   if (!this.$getOption) return;
 

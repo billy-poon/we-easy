@@ -1,4 +1,4 @@
-export function nextTick(action, context, callback) {
+export default function(action, context, callback) {
   return setTimeout($ => {
     let result = action.call(context)
     callback && callback.call(context, result)

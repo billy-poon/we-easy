@@ -1,4 +1,4 @@
-import diff from '../diff/index'
+import diff from '../utils/diff'
 
 function computeData(compute, data) {
   // console.log('computing', this.$uid)
@@ -39,43 +39,40 @@ Computer.prototype.invoke = function(data, immediate = false) {
   target.setData(computed, null, !!immediate)
 }
 
-function createMixin() {
-  return {
-    beforeCreate(opt) {
-      let { compute } = opt
-      if (compute !== void(0)) {
-        if (typeof(compute) !== 'function')
-          throw new Error('The "compute" option should be a method.')
-      }
-    },
-    mounted() {
-      // console.log('computed mounted')
-      let { compute } = this.$getOption()
-      if (!compute) return;
-
-      let computer = new Computer(this, compute)
-      Object.defineProperty(this, '$$computer', {
-        get() { return computer }
-      })
-
-      computer.invoke(this.data, true)
-    },
-    updated(data) {
-      let { $$computer: computer } = this
-      if (!computer) return;
-      if (computer.isSelfUpdate(data)) return;
-
-      computer.invoke(this.data)
+let mixin = {
+  beforeCreate(opt) {
+    let { compute } = opt
+    if (compute !== void(0)) {
+      if (typeof(compute) !== 'function')
+        throw new Error('The "compute" option should be a method.')
     }
+  },
+  mounted() {
+    // console.log('computed mounted')
+    let { compute } = this.$getOption()
+    if (!compute) return;
+
+    let computer = new Computer(this, compute)
+    Object.defineProperty(this, '$$computer', {
+      get() { return computer }
+    })
+
+    computer.invoke(this.data, true)
+  },
+  updated(data) {
+    let { $$computer: computer } = this
+    if (!computer) return;
+    if (computer.isSelfUpdate(data)) return;
+
+    computer.invoke(this.data)
   }
 }
 
-function install({ WeEasyPage, WeEasyComponent }) {
+function install({ WeEasyBoth }) {
   if (install.installed) return;
   install.installed = true
 
-  WeEasyPage.mixin(createMixin())
-  WeEasyComponent.mixin(createMixin())
+  WeEasyBoth.mixin(mixin)
 }
 
 export default {

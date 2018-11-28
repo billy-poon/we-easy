@@ -1,4 +1,4 @@
-import { mergeObject, mergeCompute, mergeFunction } from '../merge/index'
+import { mergeObject, mergeCompute, mergeFunction } from './merge/index'
 
 function mixinOne(obj, mixin) {
   Object.keys(mixin).forEach(key => {
@@ -32,10 +32,9 @@ function remapProps(obj, map) {
   return obj
 }
 
-export default function(obj, mixins, propsMap) {
+export default function(mixins, propsMap) {
   let result = {}
   mixins && mixins.forEach(x => mixinOne(result, remapProps(x, propsMap)))
-  mixinOne(result, remapProps(obj, propsMap))
 
   return result;
 }

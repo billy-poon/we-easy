@@ -15,7 +15,7 @@ function dataProxify(propNames, getter, setter) {
   })
 }
 
-function dataProxify_Data(data) {
+function setupDataProxify(data) {
   dataProxify.call(
     this,
     Object.keys(data),
@@ -36,39 +36,36 @@ function dataProxify_Data(data) {
   )
 }
 
-function createMixin() {
-  return {
-    created() {
-      // console.log('proxify mounted')
-      let cache = {}
-      Object.defineProperty(this, '$$proxifyCache', {
-        get() { return cache }
-      })
+let mixin = {
+  created() {
+    // console.log('proxify mounted')
+    let cache = {}
+    Object.defineProperty(this, '$$proxifyCache', {
+      get() { return cache }
+    })
 
-      let updateDataProxify = (function (data) {
-        data = data || this.data
-        dataProxify_Data.call(this, data)
-      }).bind(this)
+    let updateDataProxify = (function (data) {
+      data = data || this.data
+      setupDataProxify.call(this, data)
+    }).bind(this)
 
-      updateDataProxify()
-      Object.defineProperty(this, '$updateDataProxify', {
-        get() { return updateDataProxify }
-      })
-    },
-    updated(data) {
-      let { $$proxifyCache: cache } = this
-      Object.keys(data).forEach(key => (delete cache[key]))
-      this.$updateDataProxify(data)
-    },
-  }
+    updateDataProxify()
+    Object.defineProperty(this, '$updateDataProxify', {
+      get() { return updateDataProxify }
+    })
+  },
+  updated(data) {
+    let { $$proxifyCache: cache } = this
+    Object.keys(data).forEach(key => (delete cache[key]))
+    this.$updateDataProxify(data)
+  },
 }
 
-function install({ WeEasyPage, WeEasyComponent }) {
+function install({ WeEasyBoth }) {
   if (install.installed) return;
   install.installed = true
 
-  WeEasyPage.mixin(createMixin())
-  WeEasyComponent.mixin(createMixin())
+  WeEasyBoth.mixin(mixin)
 }
 
 export default {

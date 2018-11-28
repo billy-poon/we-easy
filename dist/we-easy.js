@@ -1,2 +1,1241 @@
-!function(e,t){if("object"==typeof exports&&"object"==typeof module)module.exports=t();else if("function"==typeof define&&define.amd)define([],t);else{var n=t();for(var r in n)("object"==typeof exports?exports:e)[r]=n[r]}}(window,function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var i=t[r]={i:r,l:!1,exports:{}};return e[r].call(i.exports,i,i.exports,n),i.l=!0,i.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var i in e)n.d(r,i,function(t){return e[t]}.bind(null,i));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){"use strict";n.r(t);var r=function(e,t){return Object.assign({},e,t)},i=function(e,t){let n=[e,t].filter(Boolean);return n.length?(n.forEach(e=>{if(e&&"function"!=typeof e)throw new Error('The "compute" property value must be a function.')}),function(){let e=Array.from(arguments);return n.reduce((t,n)=>{let r=n.apply(this,e);if(r){if("object"!=typeof r)throw new Error('The "compute" function must return an object value.');t=Object.assign(t,r)}return t},{})}):()=>{}},o=function(e,t){return function(){let n=arguments,r=e=>{let t=typeof e;if("function"===t)return e.apply(this,n);if("string"===t)return r(this[t]);if(Array.isArray(e)){let t;return e.forEach(e=>t=r(e)),t}},i=[];return t&&i.push(t),e&&i.push(e),r(i)}};function a(e,t){return Object.keys(t).forEach(n=>{let a=t[n];"compute"===n?e[n]=i(a,e[n]):"function"==typeof a?e[n]=o(a,e[n]):"object"==typeof a&&(e[n]=r(a,e[n]))}),e}function c(e,t){return e=Object.assign({},e),t&&Object.keys(t).forEach(n=>{let r=e[n];if(void 0!==r){let i=t[n];e[i]=r,delete e[n]}}),e}var s=function(e,t,n){let r={};return t&&t.forEach(e=>a(r,c(e,n))),a(r,c(e,n)),r},f=function(){if(!this.$getOption)return;let{mounted:e}=this.$getOption();e&&e.call(this)};const u={created:"onLaunch",launched:"onLaunch"},l=[];function h(){let e=this;Object.defineProperty(wx,"$app",{get:()=>e}),Object.defineProperties(this,{$pages:{get:()=>getCurrentPages()},$page:{get:()=>getCurrentPages().pop()}})}function p(){this.$$mounted||(Object.defineProperty(this,"$$mounted",{get:()=>!0}),f.call(this))}function d(e){(e=e||{}).mixins=[{created:h,onShow:p},...l,...e.mixins||[]];let t=s(e,e.mixins,u),{methods:n}=t;n&&delete(t={...t,...n}).methods,t.$getOption=(()=>t);let{beforeCreate:r}=t;return"function"==typeof r&&r(t),App(t)}Object.defineProperty(d,"mixin",{get:()=>e=>l.push(e)}),Object.defineProperty(App,"define",{get:()=>d});App;const y=new Set(["string","number","boolean","undefined","symbol"]),b=new Set([null]);function g(e){return y.has(typeof e)||b.has(e)}function m(e,t,n=!0){if(g(e)||g(t))return function(e,t){return e===t?void 0:e}(e,t);if(Array.isArray(e)||Array.isArray(t))return function(e,t,n){if(!e||!t)return e;if(e.length!==t.length)return e;let r=Object.keys(e),i=new Set(Object.keys(t));return r.length!=i.size?e:r.every(r=>!!i.has(r)&&void 0===m(e[r],t[r],n))?void 0:e}(e,t,n);let r={},i=!1;return Object.keys(e).forEach(o=>{let a=e[o],c=t[o];a!==c&&(n&&void 0===m(a,c,!0)||(i=!0,r[o]=a))}),i?r:void 0}var O=m;function j(e,t,n){return setTimeout(r=>{let i=e.call(t);n&&n.call(t,i)},0)}let P=0;var v=function(){let e=++P;Object.defineProperty(this,"$uid",{get:()=>e});let{$getOption:t,setData:n}=this;if(!t||!n)return;let{beforeMount:r,beforeUpdate:i,updated:o}=this.$getOption(),a=null,c=e=>{o&&(e=e||this.data,a||(a={},j(e=>{let t=a;a=null,o.call(this,t)})),Object.assign(a,e))};Object.defineProperty(this,"$notifyUpdated",{get:()=>c});let s=(e,t)=>{i&&i.call(this,e),n.call(this,e,t),this.$updateDataProxify&&this.$updateDataProxify(e),c(e)},f=null,u=[],l=(e,t)=>{f||(f={},j(e=>{let t=f,n=u;f=null,u=[];let r=O(t,this.data);void 0!==r&&s(r,function(){let e=arguments;n.forEach(t=>t.apply(this,e))}.bind(this))})),Object.assign(f,e),t&&u.push(t)};Object.defineProperty(this,"setData",{get(){return function(e,t,n=!1){e&&(n?s:l)(e,t)}.bind(this)}})};const w={created:"onLoad"},$=[];function E(e){(e=e||{}).mixins=[{onLoad:v,onReady:f},...$,...e.mixins||[]];let t=s(e,e.mixins,w),{methods:n}=t;n&&delete(t={...t,...n}).methods,t.$getOption=(()=>t);let{beforeCreate:r}=t;return"function"==typeof r&&r(t),Page(t)}Object.defineProperty(E,"mixin",{get:()=>e=>$.push(e)}),Object.defineProperty(Page,"define",{get:()=>E});Page;const x={props:"properties"},C=[];function k(e){(e=e||{}).mixins=[{attached:v,ready:f},{created(){Object.defineProperty(this,"$emit",{get:()=>(function(){this.triggerEvent.apply(this,arguments)})})}},{beforeCreate(e){let{properties:t,watch:n,compute:r}=e;t&&(n||r)&&Object.keys(t).forEach(e=>{let n=t[e];if(n){"object"!=typeof n&&(n=t[e]={type:n});let{observer:r}=n;n.observer=((e,t)=>(function(n){"string"==typeof t&&(t=this[t]),t&&t.apply(this,arguments);let r={};r[e]=n,this.$notifyUpdated&&this.$notifyUpdated(r)}))(e,r)}})}},...C,...e.mixins||[]];let t=s(e,e.mixins,x);t.methods=t.methods||{},t.methods.$getOption=(()=>t);let{beforeCreate:n}=t;return"function"==typeof n&&n(t),Component(t)}Object.defineProperty(k,"mixin",{get:()=>e=>C.push(e)}),Object.defineProperty(Component,"define",{get:()=>k});Component;var W={install:function e({WeEasyPage:t,WeEasyComponent:n}){if(e.installed)return;e.installed=!0;let r={created(){Object.defineProperty(this,"$nextTick",{get(){return(e,t)=>j(e,this,t)}})}};t.mixin(r),n.mixin(r)}};function A(e){(function(e,t,n){e.forEach(e=>{this.hasOwnProperty(e)||Object.defineProperty(this,e,(e=>({get(){if(t)return t.call(this,e);throw new Error(`Property "${e}" is not readable.`)},set(t){if(n)return n.call(this,e,t);throw new Error(`Property "${e}" is not writable.`)}}))(e))})}).call(this,Object.keys(e),function(e){let{$$proxifyCache:t}=this;return t.hasOwnProperty(e)?t[e]:this.data[e]},function(e,t){let n={};return n[e]=t,this.$$proxifyCache[e]=t,this.setData(n)})}function D(){return{created(){let e={};Object.defineProperty(this,"$$proxifyCache",{get:()=>e});let t=function(e){e=e||this.data,A.call(this,e)}.bind(this);t(),Object.defineProperty(this,"$updateDataProxify",{get:()=>t})},updated(e){let{$$proxifyCache:t}=this;Object.keys(e).forEach(e=>delete t[e]),this.$updateDataProxify(e)}}}var S={install:function e({WeEasyPage:t,WeEasyComponent:n}){e.installed||(e.installed=!0,t.mixin(D()),n.mixin(D()))}};function T(e,t){Object.defineProperty(this,"target",{get:()=>e}),Object.defineProperty(this,"compute",{get:()=>t})}function U(){return{beforeCreate(e){let{compute:t}=e;if(void 0!==t&&"function"!=typeof t)throw new Error('The "compute" option should be a method.')},mounted(){let{compute:e}=this.$getOption();if(!e)return;let t=new T(this,e);Object.defineProperty(this,"$$computer",{get:()=>t}),t.invoke(this.data,!0)},updated(e){let{$$computer:t}=this;t&&(t.isSelfUpdate(e)||t.invoke(this.data))}}}T.prototype.isSelfUpdate=function(e){let{cache:t}=this;return t&&e&&(e=Object.assign({},e),Object.keys(t).forEach(t=>delete e[t])),void 0===O(e,t)},T.prototype.invoke=function(e,t=!1){let{target:n,compute:r,cache:i}=this,o=function(e,t){let n=e.call(this,t);if(!n||"object"!=typeof n)throw new Error('The "compute" method should return a non-null object.');return n}.call(n,r,e);void 0!==O(o,i)&&(this.cache=o,n.setData(o,null,!!t))};var _={install:function e({WeEasyPage:t,WeEasyComponent:n}){e.installed||(e.installed=!0,t.mixin(U()),n.mixin(U()))}};function M(e,t){(function(e){Object.keys(e).forEach(t=>{let n=e[t];if(!n)throw new Error(`Invalid config for watcher "${t}".`);let r=typeof n;if("function"===r?n={handler:n}:"string"===r?n={handler:this[n]}:"string"==typeof n.handler&&(n.handler=this[n.handler]),"function"!=typeof n.handler)throw new Error(`Invalid handler function specified to watcher "${t}".`);e[t]=n})}).call(e,t),Object.defineProperty(this,"target",{get:()=>e}),Object.defineProperty(this,"watch",{get:()=>t});let n={};Object.defineProperty(this,"cache",{get:()=>n})}function B(){return{beforeCreate(e){let{watch:t}=e;if(void 0!==t&&"object"!=typeof t)throw new Error('The "watch" option should be an object.')},created(){let{watch:e}=this.$getOption();if(!e)return;let t=new M(this,e);Object.defineProperty(this,"$$watcher",{get:()=>t}),t.initialize()},updated(e){let{$$watcher:t}=this;t&&t.invokeByData(e)}}}M.prototype={constructor:M,initialize:function(){let{target:e,cache:t,watch:n}=this,r={},i=!1;Object.keys(n).forEach(o=>{let a=t[o]=e.data[o];n[o].immediate&&(i=!0,r[o]=a)}),i&&j(e=>this.invokeByData(r,!0))},invokeByData(e,t=!1){let n=Object.keys(e||{}),{target:r,cache:i,watch:o}=this;n&&n.forEach(n=>{if(!o.hasOwnProperty(n))return;let a=i[n],c=e[n];(t||void 0!==O(c,a))&&(i[n]=c,o[n].handler.call(r,c,a))})}},M.prototype.invokeWatcher=function(e,t=!1){let{target:n,cache:r,watch:i}=this;e&&e.forEach(e=>{if(!i.hasOwnProperty(e))return;let o=r[e],a=n.data[e];(t||void 0!==O(a,o))&&(r[e]=a,i[e].handler.call(n,a,o))})};var L={install:function e({WeEasyPage:t,WeEasyComponent:n}){e.installed||(e.installed=!0,t.mixin(B()),n.mixin(B()))}};n.d(t,"WeEasyApp",function(){return d}),n.d(t,"WeEasyPage",function(){return E}),n.d(t,"WeEasyComponent",function(){return k});const z={WeEasyApp:d,WeEasyPage:E,WeEasyComponent:k};Object.defineProperty(z,"use",{get(){return e=>{if(e&&"object"==typeof e&&(e=e.install),"function"!=typeof e)throw new Error("Invalid plugin value.");e(this)}}}),z.use(W),z.use(S),z.use(_),z.use(L);t.default=z}])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "d:\\.workspace\\.open\\we-easy\\src\\index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\app.js":
+/*!**********************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/app.js ***!
+  \**********************************************/
+/*! exports provided: WeEasyApp, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WeEasyApp", function() { return WeEasyApp; });
+/* harmony import */ var _utils_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/mixin */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\mixin.js");
+/* harmony import */ var _core_mounted__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core/mounted */ "d:\\.workspace\\.open\\we-easy\\src\\core\\mounted.js");
+/* harmony import */ var _mixins_later__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixins/later */ "d:\\.workspace\\.open\\we-easy\\src\\mixins\\later.js");
+// global App
+
+
+
+
+
+const propMap = {
+  'created': 'onLaunch',
+}
+
+const earlierMixin = {
+  created() {
+    let app = this
+    Object.defineProperty(wx, '$app', {
+      get() { return app }
+    })
+    Object.defineProperties(this, {
+      $pages: {
+        get() { return getCurrentPages() }
+      },
+      $page: {
+        get() { return getCurrentPages().pop() }
+      }
+    })
+  },
+  onShow() {
+    if (!this.$$mounted) {
+      Object.defineProperty(this, '$$mounted', {
+        get() { return true }
+      })
+      _core_mounted__WEBPACK_IMPORTED_MODULE_1__["default"].call(this)
+    }
+  },
+}
+
+const globalMixins = []
+
+function WeEasyApp(options) {
+  options = options || {}
+  let mixins = [
+    earlierMixin,
+    ...globalMixins,
+    ...(options.mixins || []),
+    options,
+    _mixins_later__WEBPACK_IMPORTED_MODULE_2__["default"],
+  ]
+
+  let opt = Object(_utils_mixin__WEBPACK_IMPORTED_MODULE_0__["default"])(mixins, propMap)
+  let { methods } = opt
+  if (methods) {
+    opt = { ...opt, ...methods }
+    delete opt.methods
+  }
+
+  opt.$getOption = () => opt
+
+  let { beforeCreate } = opt
+  if (typeof(beforeCreate) === 'function') {
+    beforeCreate(opt)
+  }
+
+  return App(opt)
+}
+
+Object.defineProperty(WeEasyApp, 'mixin', {
+  get() {
+    return mixin => globalMixins.push(mixin)
+  }
+})
+
+Object.defineProperty(App, 'define', {
+  get() { return WeEasyApp }
+})
+
+/* harmony default export */ __webpack_exports__["default"] = (App);
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\component.js":
+/*!****************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/component.js ***!
+  \****************************************************/
+/*! exports provided: WeEasyComponent, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WeEasyComponent", function() { return WeEasyComponent; });
+/* harmony import */ var _utils_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/mixin */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\mixin.js");
+/* harmony import */ var _mixins_later__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mixins/later */ "d:\\.workspace\\.open\\we-easy\\src\\mixins\\later.js");
+/* harmony import */ var _mixins_earlier__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixins/earlier */ "d:\\.workspace\\.open\\we-easy\\src\\mixins\\earlier.js");
+// global Component
+
+
+
+
+
+const propMap = {
+  'props': 'properties',
+  'mounted': 'ready',
+}
+
+const globalMixins = []
+
+const defaultMixin = {
+  beforeCreate(opt) {
+    let { properties: props, watch, compute } = opt
+    if (props && (watch || compute)) {
+      Object.keys(props).forEach(key => {
+        let prop = props[key]
+        if (prop) {
+          if (typeof (prop) !== 'object') prop = props[key] = { type: prop };
+          let { observer } = prop
+
+          prop.observer = ((key, observer) => function (nv) {
+            if (typeof (observer) === 'string') observer = this[observer];
+            observer && observer.apply(this, arguments)
+
+            let data = {}
+            data[key] = nv
+            this.$notifyUpdated(data)
+
+          })(key, observer)
+        }
+      })
+    }
+  },
+  created() {
+    Object.defineProperty(this, '$emit', {
+      get() {
+        return function () {
+          this.triggerEvent.apply(this, arguments)
+        }
+      }
+    })
+  }
+}
+
+function WeEasyComponent(options) {
+  options = options || {}
+  let mixins = [
+    _mixins_earlier__WEBPACK_IMPORTED_MODULE_2__["default"],
+    defaultMixin,
+    ...globalMixins,
+    ...(options.mixins || []),
+    options,
+    _mixins_later__WEBPACK_IMPORTED_MODULE_1__["default"],
+  ]
+
+  let opt = Object(_utils_mixin__WEBPACK_IMPORTED_MODULE_0__["default"])(mixins, propMap)
+
+  opt.methods = opt.methods || {}
+  opt.methods.$getOption = () => opt
+
+  let { beforeCreate } = opt
+  if (typeof(beforeCreate) === 'function') {
+    beforeCreate(opt)
+  }
+
+  return Component(opt)
+}
+
+Object.defineProperty(WeEasyComponent, 'mixin', {
+  get() {
+    return mixin => globalMixins.push(mixin)
+  }
+})
+
+Object.defineProperty(Component, 'define', {
+  get() { return WeEasyComponent }
+})
+
+/* harmony default export */ __webpack_exports__["default"] = (Component);
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\core\\before-mount.js":
+/*!************************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/core/before-mount.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// before existing created() hook
+/* harmony default export */ __webpack_exports__["default"] = (function() {
+  // console.log('before-mount')
+  let { beforeMount } = this.$getOption()
+  beforeMount && beforeMount.call(this)
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\core\\created.js":
+/*!*******************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/core/created.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_diff__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/diff */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\diff.js");
+/* harmony import */ var _utils_next_tick__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/next-tick */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\next-tick.js");
+// earlier action in created() hook
+
+
+
+
+let uid = 0
+
+/* harmony default export */ __webpack_exports__["default"] = (function() {
+  let myuid = ++uid
+  Object.defineProperty(this, '$uid', {
+    get() { return myuid }
+  })
+
+  let { $getOption, setData } = this
+  if (!$getOption || !setData) return;
+
+  let { beforeUpdate, updated } = this.$getOption()
+
+  let updatedDataCache = null
+  let notifyUpdated = data => {
+    if (!updated) return;
+
+    data = data || this.data
+    if (!updatedDataCache) {
+      updatedDataCache = {}
+      Object(_utils_next_tick__WEBPACK_IMPORTED_MODULE_1__["default"])($ => {
+        let data = updatedDataCache
+        updatedDataCache = null
+        updated.call(this, data)
+      })
+    }
+    Object.assign(updatedDataCache, data)
+  }
+
+  Object.defineProperty(this, '$notifyUpdated', {
+    get() { return notifyUpdated }
+  })
+
+  let syncSetData = (data, callback) => {
+    beforeUpdate && beforeUpdate.call(this, data)
+    setData.call(this, data, callback)
+
+    this.$updateDataProxify && this.$updateDataProxify(data)
+    notifyUpdated(data)
+  }
+
+
+  let setDataCache = null
+  let setDataCallbacks = []
+  let asyncSetData = (data, callback) => {
+    if (!setDataCache) {
+      setDataCache = {}
+      Object(_utils_next_tick__WEBPACK_IMPORTED_MODULE_1__["default"])($ => {
+        let data = setDataCache
+        let callbacks = setDataCallbacks
+
+        setDataCache = null
+        setDataCallbacks = []
+
+        let delta = Object(_utils_diff__WEBPACK_IMPORTED_MODULE_0__["default"])(data, this.data)
+        if (delta === void(0)) return;
+
+        syncSetData(delta, (function() {
+          let args = arguments
+          callbacks.forEach(cb => cb.apply(this, args))
+        }).bind(this))
+      })
+    }
+
+    Object.assign(setDataCache, data)
+    callback && setDataCallbacks.push(callback)
+  }
+
+  Object.defineProperty(this, 'setData', {
+    get() {
+      return (function(data, callback, immediate = false) {
+        data && (immediate ? syncSetData : asyncSetData)(data, callback)
+      }).bind(this)
+    }
+  })
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\core\\mounted.js":
+/*!*******************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/core/mounted.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// mounted() hook
+/* harmony default export */ __webpack_exports__["default"] = (function() {
+  if (!this.$getOption) return;
+
+  let { mounted } = this.$getOption()
+  mounted && mounted.call(this)
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\index.js":
+/*!************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/index.js ***!
+  \************************************************/
+/*! exports provided: WeEasyApp, WeEasyPage, WeEasyComponent, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app */ "d:\\.workspace\\.open\\we-easy\\src\\app.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WeEasyApp", function() { return _app__WEBPACK_IMPORTED_MODULE_0__["WeEasyApp"]; });
+
+/* harmony import */ var _page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./page */ "d:\\.workspace\\.open\\we-easy\\src\\page.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WeEasyPage", function() { return _page__WEBPACK_IMPORTED_MODULE_1__["WeEasyPage"]; });
+
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./component */ "d:\\.workspace\\.open\\we-easy\\src\\component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WeEasyComponent", function() { return _component__WEBPACK_IMPORTED_MODULE_2__["WeEasyComponent"]; });
+
+/* harmony import */ var _plugins_next_tick__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/next-tick */ "d:\\.workspace\\.open\\we-easy\\src\\plugins\\next-tick.js");
+/* harmony import */ var _plugins_data_proxify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./plugins/data-proxify */ "d:\\.workspace\\.open\\we-easy\\src\\plugins\\data-proxify.js");
+/* harmony import */ var _plugins_data_watcher__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugins/data-watcher */ "d:\\.workspace\\.open\\we-easy\\src\\plugins\\data-watcher.js");
+/* harmony import */ var _plugins_data_computed__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./plugins/data-computed */ "d:\\.workspace\\.open\\we-easy\\src\\plugins\\data-computed.js");
+
+
+
+
+
+
+
+
+
+const WeEasyBoth = {}
+Object.defineProperty(WeEasyBoth, 'mixin', {
+  get() {
+    return mixin => {
+      _page__WEBPACK_IMPORTED_MODULE_1__["WeEasyPage"].mixin(mixin)
+      _component__WEBPACK_IMPORTED_MODULE_2__["WeEasyComponent"].mixin(mixin)
+    }
+  }
+})
+
+const WeEasy = {
+  WeEasyApp: _app__WEBPACK_IMPORTED_MODULE_0__["WeEasyApp"],
+  WeEasyBoth,
+  WeEasyPage: _page__WEBPACK_IMPORTED_MODULE_1__["WeEasyPage"],
+  WeEasyComponent: _component__WEBPACK_IMPORTED_MODULE_2__["WeEasyComponent"],
+}
+
+Object.defineProperty(WeEasy, 'use', {
+  get() {
+    return plugin => {
+      if (plugin) {
+        if (typeof(plugin) === 'object') {
+          plugin = plugin.install
+        }
+      }
+      if (typeof(plugin) !== 'function') {
+        throw new Error('Invalid plugin value.')
+      }
+      plugin(this)
+    }
+  }
+})
+
+WeEasy.use(_plugins_next_tick__WEBPACK_IMPORTED_MODULE_3__["default"])
+WeEasy.use(_plugins_data_proxify__WEBPACK_IMPORTED_MODULE_4__["default"])
+WeEasy.use(_plugins_data_computed__WEBPACK_IMPORTED_MODULE_6__["default"])
+WeEasy.use(_plugins_data_watcher__WEBPACK_IMPORTED_MODULE_5__["default"])
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (WeEasy);
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\mixins\\earlier.js":
+/*!*********************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/mixins/earlier.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core_created__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/created */ "d:\\.workspace\\.open\\we-easy\\src\\core\\created.js");
+/* harmony import */ var _core_mounted__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/mounted */ "d:\\.workspace\\.open\\we-easy\\src\\core\\mounted.js");
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  created: _core_created__WEBPACK_IMPORTED_MODULE_0__["default"], mounted: _core_mounted__WEBPACK_IMPORTED_MODULE_1__["default"]
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\mixins\\later.js":
+/*!*******************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/mixins/later.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core_before_mount__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/before-mount */ "d:\\.workspace\\.open\\we-easy\\src\\core\\before-mount.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  created: _core_before_mount__WEBPACK_IMPORTED_MODULE_0__["default"]
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\page.js":
+/*!***********************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/page.js ***!
+  \***********************************************/
+/*! exports provided: WeEasyPage, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WeEasyPage", function() { return WeEasyPage; });
+/* harmony import */ var _utils_mixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/mixin */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\mixin.js");
+/* harmony import */ var _mixins_later__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mixins/later */ "d:\\.workspace\\.open\\we-easy\\src\\mixins\\later.js");
+/* harmony import */ var _mixins_earlier__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixins/earlier */ "d:\\.workspace\\.open\\we-easy\\src\\mixins\\earlier.js");
+// global Page
+
+
+
+
+
+const propMap = {
+  'created': 'onLoad',
+  'mounted': 'onReady',
+}
+
+const globalMixins = []
+
+function WeEasyPage(options) {
+  options = options || {}
+  let mixins = [
+    _mixins_earlier__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ...globalMixins,
+    ...(options.mixins || []),
+    options,
+    _mixins_later__WEBPACK_IMPORTED_MODULE_1__["default"],
+  ]
+
+  let opt = Object(_utils_mixin__WEBPACK_IMPORTED_MODULE_0__["default"])(mixins, propMap)
+
+  let { methods } = opt
+  if (methods) {
+    opt = { ...opt, ...methods }
+    delete opt.methods
+  }
+
+  opt.$getOption = () => opt
+
+  let { beforeCreate } = opt
+  if (typeof(beforeCreate) === 'function') {
+    beforeCreate(opt)
+  }
+
+  return Page(opt)
+}
+
+Object.defineProperty(WeEasyPage, 'mixin', {
+  get() {
+    return mixin => globalMixins.push(mixin)
+  }
+})
+
+Object.defineProperty(Page, 'define', {
+  get() { return WeEasyPage }
+})
+
+/* harmony default export */ __webpack_exports__["default"] = (Page);
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\plugins\\data-computed.js":
+/*!****************************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/plugins/data-computed.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_diff__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/diff */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\diff.js");
+
+
+function computeData(compute, data) {
+  // console.log('computing', this.$uid)
+  let res = compute.call(this, data)
+  if (!res || typeof(res) !== 'object') {
+    throw new Error('The "compute" method should return a non-null object.')
+  }
+
+  return res
+}
+
+function Computer(target, compute) {
+  Object.defineProperty(this, 'target', {
+    get() { return target }
+  })
+  Object.defineProperty(this, 'compute', {
+    get() { return compute }
+  })
+}
+
+Computer.prototype.isSelfUpdate = function(data) {
+  let { cache } = this
+  if (cache && data) {
+    data = Object.assign({}, data)
+    Object.keys(cache).forEach(key => (delete data[key]))
+  }
+
+  return Object(_utils_diff__WEBPACK_IMPORTED_MODULE_0__["default"])(data, cache) === void(0)
+}
+
+Computer.prototype.invoke = function(data, immediate = false) {
+  let { target, compute, cache } = this
+
+  let computed = computeData.call(target, compute, data)
+  if (Object(_utils_diff__WEBPACK_IMPORTED_MODULE_0__["default"])(computed, cache) === void(0)) return;
+
+  this.cache = computed
+  target.setData(computed, null, !!immediate)
+}
+
+let mixin = {
+  beforeCreate(opt) {
+    let { compute } = opt
+    if (compute !== void(0)) {
+      if (typeof(compute) !== 'function')
+        throw new Error('The "compute" option should be a method.')
+    }
+  },
+  mounted() {
+    // console.log('computed mounted')
+    let { compute } = this.$getOption()
+    if (!compute) return;
+
+    let computer = new Computer(this, compute)
+    Object.defineProperty(this, '$$computer', {
+      get() { return computer }
+    })
+
+    computer.invoke(this.data, true)
+  },
+  updated(data) {
+    let { $$computer: computer } = this
+    if (!computer) return;
+    if (computer.isSelfUpdate(data)) return;
+
+    computer.invoke(this.data)
+  }
+}
+
+function install({ WeEasyBoth }) {
+  if (install.installed) return;
+  install.installed = true
+
+  WeEasyBoth.mixin(mixin)
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\plugins\\data-proxify.js":
+/*!***************************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/plugins/data-proxify.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function dataProxify(propNames, getter, setter) {
+  propNames.forEach(prop => {
+    if (this.hasOwnProperty(prop)) return;
+
+    Object.defineProperty(this, prop, (prop => ({
+      get() {
+        if (getter) return getter.call(this, prop)
+        throw new Error(`Property "${prop}" is not readable.`)
+      },
+      set(value) {
+        if (setter) return setter.call(this, prop, value)
+        throw new Error(`Property "${prop}" is not writable.`)
+      }
+    }))(prop))
+  })
+}
+
+function setupDataProxify(data) {
+  dataProxify.call(
+    this,
+    Object.keys(data),
+    function(prop) {
+      let { $$proxifyCache: cache } = this
+      if (cache.hasOwnProperty(prop)) {
+        return cache[prop]
+      } else {
+        return this.data[prop]
+      }
+    },
+    function(prop, value) {
+      let data = {}
+      data[prop] = value
+      this.$$proxifyCache[prop] = value
+      return this.setData(data)
+    }
+  )
+}
+
+let mixin = {
+  created() {
+    // console.log('proxify mounted')
+    let cache = {}
+    Object.defineProperty(this, '$$proxifyCache', {
+      get() { return cache }
+    })
+
+    let updateDataProxify = (function (data) {
+      data = data || this.data
+      setupDataProxify.call(this, data)
+    }).bind(this)
+
+    updateDataProxify()
+    Object.defineProperty(this, '$updateDataProxify', {
+      get() { return updateDataProxify }
+    })
+  },
+  updated(data) {
+    let { $$proxifyCache: cache } = this
+    Object.keys(data).forEach(key => (delete cache[key]))
+    this.$updateDataProxify(data)
+  },
+}
+
+function install({ WeEasyBoth }) {
+  if (install.installed) return;
+  install.installed = true
+
+  WeEasyBoth.mixin(mixin)
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\plugins\\data-watcher.js":
+/*!***************************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/plugins/data-watcher.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_diff__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/diff */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\diff.js");
+
+
+function normalize(watch) {
+  Object.keys(watch).forEach(key => {
+    let item = watch[key]
+    if (!item) {
+      throw new Error(`Invalid config for watcher "${key}".`)
+    }
+
+    let type = typeof(item)
+    if (type === 'function') {
+      item = { handler: item }
+    } else if (type === 'string') {
+      item = { handler: this[item] }
+    } else if (typeof(item.handler) === 'string') {
+      item.handler = this[item.handler]
+    }
+
+    if (typeof(item.handler) !== 'function') {
+      throw new Error(`Invalid handler function specified to watcher "${key}".`)
+    }
+
+    watch[key] = item
+  })
+}
+
+function Watcher(target, watch) {
+  normalize.call(target, watch)
+  Object.defineProperty(this, 'target', {
+    get() { return target }
+  })
+
+  Object.defineProperty(this, 'watch', {
+    get() { return watch }
+  })
+
+  let cache = {}
+  Object.defineProperty(this, 'cache', {
+    get() { return cache }
+  })
+}
+
+Watcher.prototype = {
+  constructor: Watcher,
+  initialize: function () {
+    let { target, cache, watch } = this
+
+    // console.log('initial: ', target.data)
+
+    let immediates = {}
+    let hasImmediates = false
+    Object.keys(watch).forEach(key => {
+      let val = cache[key] = target.data[key]
+      if (watch[key].immediate) {
+        hasImmediates = true
+        immediates[key] = val
+      }
+    })
+
+    if (hasImmediates) {
+      this.invoke(immediates, true)
+    }
+  },
+  invoke(data, force = false) {
+    // console.log('invoking watcher', data, force)
+    let keys = Object.keys(data || {})
+    let { target, cache, watch } = this
+
+    keys && keys.forEach(key => {
+      if (!watch.hasOwnProperty(key)) return;
+
+      let ov = cache[key]
+      let nv = data[key]
+
+      if (force || Object(_utils_diff__WEBPACK_IMPORTED_MODULE_0__["default"])(nv, ov) !== void (0)) {
+        cache[key] = nv
+        watch[key].handler.call(target, nv, ov)
+      }
+    })
+  },
+}
+
+let mixin = {
+  beforeCreate(opt) {
+    let { watch } = opt
+    if (watch !== void(0)) {
+      if (typeof(watch) !== 'object')
+        throw new Error('The "watch" option should be an object.')
+    }
+  },
+  beforeMount() {
+    // console.log('watcher created')
+    let { watch } = this.$getOption()
+    if (!watch) return;
+
+    let watcher = new Watcher(this, watch)
+    Object.defineProperty(this, '$$watcher', {
+      get() { return watcher }
+    })
+
+    watcher.initialize()
+  },
+  updated(data) {
+    let { $$watcher: watcher } = this
+    watcher && watcher.invoke(data, true)
+  }
+}
+
+function install({ WeEasyBoth }) {
+  if (install.installed) return;
+  install.installed = true
+
+  WeEasyBoth.mixin(mixin)
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\plugins\\next-tick.js":
+/*!************************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/plugins/next-tick.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_next_tick__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/next-tick */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\next-tick.js");
+
+
+let mixin = {
+  created() {
+    Object.defineProperty(this, '$nextTick', {
+      get() { return (action, callback) => Object(_utils_next_tick__WEBPACK_IMPORTED_MODULE_0__["default"])(action, this, callback) }
+    })
+  }
+}
+
+function install({ WeEasyBoth }) {
+  if (install.installed) return;
+  install.installed = true
+
+  WeEasyBoth.mixin(mixin)
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\utils\\diff.js":
+/*!*****************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/utils/diff.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _primitive__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./primitive */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\primitive.js");
+
+
+function primitiveDiff(x, y) {
+  return x === y ? void(0) : x
+}
+
+function arrayDiff(x, y, deep) {
+  if (!x || !y) return x;
+  if (x.length !== y.length) return x;
+
+  let keys = Object.keys(x)
+  let kset = new Set(Object.keys(y))
+  if (keys.length != kset.size) return x;
+
+  return keys.every(key => {
+    if (!kset.has(key)) return false;
+    let valx = x[key]
+    let valy = y[key]
+
+    return diff(valx, valy, deep) === void(0)
+  }) ? void(0) : x
+}
+
+function diff(data, target, deep = true) {
+  if (Object(_primitive__WEBPACK_IMPORTED_MODULE_0__["isPrimitive"])(data) || Object(_primitive__WEBPACK_IMPORTED_MODULE_0__["isPrimitive"])(target)) {
+    return primitiveDiff(data, target)
+  }
+  if (Array.isArray(data) || Array.isArray(target)) {
+    return arrayDiff(data, target, deep)
+  }
+
+  let res = {}
+  let hasDiff = false
+  Object.keys(data).forEach(key => {
+    let vd = data[key]
+    let vt = target[key]
+
+    if (vd !== vt) {
+      if (!deep || diff(vd, vt, true) !== void(0)) {
+        hasDiff = true
+        res[key] = vd
+      }
+    }
+  })
+
+  return hasDiff ? res : void(0)
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (diff);
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\utils\\merge\\compute.js":
+/*!**************************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/utils/merge/compute.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function(x, y) {
+  let array = [x, y].filter(Boolean)
+  if (!array.length) return () => {};
+
+  array.forEach(fn => {
+    if (fn && typeof(fn) !== 'function') {
+      throw new Error('The "compute" property value must be a function.')
+    }
+  })
+
+  return function() {
+    let args = Array.from(arguments)
+    return array.reduce((res, fn) => {
+      let computed = fn.apply(this, args)
+      if (computed) {
+        if (typeof(computed) !== 'object') {
+          throw new Error('The "compute" function must return an object value.')
+        }
+        res = Object.assign(res, computed)
+      }
+
+      return res
+    }, {})
+  }
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\utils\\merge\\function.js":
+/*!***************************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/utils/merge/function.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function(x, y) {
+  return function() {
+    let args = arguments
+
+    let invoke = fn => {
+      let type = typeof(fn)
+      if (type === 'function') {
+        return fn.apply(this, args)
+      } else if (type === 'string') {
+        return invoke(this[type])
+      } else if (Array.isArray(fn)) {
+        let result;
+        fn.forEach(x => (result = invoke(x)))
+        return result;
+      }
+    }
+
+    let array = []
+    y && array.push(y)
+    x && array.push(x)
+
+    return invoke(array)
+  }
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\utils\\merge\\index.js":
+/*!************************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/utils/merge/index.js ***!
+  \************************************************************/
+/*! exports provided: mergeObject, mergeCompute, mergeFunction */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _object__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./object */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\merge\\object.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "mergeObject", function() { return _object__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _compute__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compute */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\merge\\compute.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "mergeCompute", function() { return _compute__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./function */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\merge\\function.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "mergeFunction", function() { return _function__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+
+
+
+
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\utils\\merge\\object.js":
+/*!*************************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/utils/merge/object.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function(x, y) {
+  return Object.assign({}, x, y)
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\utils\\mixin.js":
+/*!******************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/utils/mixin.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _merge_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./merge/index */ "d:\\.workspace\\.open\\we-easy\\src\\utils\\merge\\index.js");
+
+
+function mixinOne(obj, mixin) {
+  Object.keys(mixin).forEach(key => {
+    let value = mixin[key]
+    if (key === 'compute') {
+      obj[key] = Object(_merge_index__WEBPACK_IMPORTED_MODULE_0__["mergeCompute"])(value, obj[key])
+    } else if (typeof(value) === 'function') {
+      obj[key] = Object(_merge_index__WEBPACK_IMPORTED_MODULE_0__["mergeFunction"])(value, obj[key])
+    } else if (typeof(value) === 'object') {
+      obj[key] = Object(_merge_index__WEBPACK_IMPORTED_MODULE_0__["mergeObject"])(value, obj[key])
+    }
+  })
+
+  return obj
+}
+
+
+function remapProps(obj, map) {
+  obj = Object.assign({}, obj)
+  if (map) {
+    Object.keys(map).forEach(key => {
+      let prop = obj[key]
+      if (prop !== void (0)) {
+        let mapKey = map[key]
+        obj[mapKey] = prop
+        delete obj[key]
+      }
+    })
+  }
+
+  return obj
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (function(mixins, propsMap) {
+  let result = {}
+  mixins && mixins.forEach(x => mixinOne(result, remapProps(x, propsMap)))
+
+  return result;
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\utils\\next-tick.js":
+/*!**********************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/utils/next-tick.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function(action, context, callback) {
+  return setTimeout($ => {
+    let result = action.call(context)
+    callback && callback.call(context, result)
+  }, 0)
+});
+
+
+/***/ }),
+
+/***/ "d:\\.workspace\\.open\\we-easy\\src\\utils\\primitive.js":
+/*!**********************************************************!*\
+  !*** d:/.workspace/.open/we-easy/src/utils/primitive.js ***!
+  \**********************************************************/
+/*! exports provided: isPrimitive */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPrimitive", function() { return isPrimitive; });
+// string, number, boolean, null, undefined, symbol
+
+const primitiveTypes = new Set([
+  'string',
+  'number',
+  'boolean',
+  'undefined',
+  'symbol',
+])
+
+const primitiveObjects = new Set([
+  null,
+])
+
+function isPrimitive(value) {
+  return primitiveTypes.has(typeof(value)) || primitiveObjects.has(value)
+}
+
+
+/***/ })
+
+/******/ });
+});
 //# sourceMappingURL=we-easy.js.map
